@@ -1,3 +1,13 @@
+/* From https: //fontlibrary.org/en/font/chicagoflf */
+/* ChicagoFLFRegular - SIL Open Font License 1.1 */
+/* Added to the project due to remote font loading issues with GitHub Pages */
+@font-face {
+    font-family: 'ChicagoFLFRegular';
+    src: url('ChicagoFLFRegular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
 body {
     margin: 0;
     padding: 0;
