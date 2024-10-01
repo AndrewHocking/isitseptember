@@ -3,7 +3,7 @@ window.onload = function () {
     const month = today.getMonth();
     const day = today.getDate();
 
-    if (month < 5 || month > 8) { // October - May
+    if (month < 5 || month > 9) { // November - May
         document.getElementById("answer").innerHTML = "It's basically September";
     } else if (month < 6) { // June
         document.getElementById("answer").innerHTML = "It's basically almost September";
@@ -26,14 +26,20 @@ window.onload = function () {
             document.getElementById("answer").innerHTML = "It's barely September";
         } else if (day < 27) {
             document.getElementById("answer").innerHTML = "It's thoroughly September";
-        } else if (day < 30) {
-            document.getElementById("answer").innerHTML = "It's still September";
         } else {
-            document.getElementById("answer").innerHTML = "It's almost basically September";
+            document.getElementById("answer").innerHTML = "It's still September";
         }
 
         if (day == 12) {
             document.getElementById("subtitle").innerHTML = "It's also my birthday! &#129395;";
+        }
+    } else if (month == 9) { // October
+        if (day < 5) {
+            document.getElementById("answer").innerHTML = "It's basically still September";
+        } else if (day == 6) {
+            document.getElementById("answer").innerHTML = "It's almost basically September";
+        } else {
+            document.getElementById("answer").innerHTML = "It's basically September";
         }
     }
 }
