@@ -3,9 +3,7 @@ window.onload = function () {
     const month = today.getMonth();
     const day = today.getDate();
 
-    if (month < 5 || month > 9) { // November - May
-        document.getElementById("answer").innerHTML = "It's basically September";
-    } else if (month < 6) { // June
+    if (month < 6) { // June
         document.getElementById("answer").innerHTML = "It's basically almost September";
     } else if (month < 7) { // July
         if (day < 15) {
@@ -16,8 +14,10 @@ window.onload = function () {
     } else if (month < 8) { // August
         if (day < 15) {
             document.getElementById("answer").innerHTML = "It's nearly September";
+        } else if (day < 29) {
+            document.getElementById("answer").innerHTML = "It's nearly effectively September";
         } else {
-            document.getElementById("answer").innerHTML = "It's nearly actually September";
+            document.getElementById("answer").innerHTML = "It's effectively September";
         }
     } else if (month == 8) { // September
         if (day == 1) {
@@ -35,11 +35,15 @@ window.onload = function () {
         }
     } else if (month == 9) { // October
         if (day < 5) {
-            document.getElementById("answer").innerHTML = "It's basically still September";
+            document.getElementById("answer").innerHTML = "It's still September";
         } else if (day == 6) {
+            document.getElementById("answer").innerHTML = "It's basically still September";
+        } else if (day == 7) {
             document.getElementById("answer").innerHTML = "It's almost basically September";
         } else {
             document.getElementById("answer").innerHTML = "It's basically September";
         }
+    } else { // November - May
+        document.getElementById("answer").innerHTML = "It's basically September";
     }
 }
