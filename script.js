@@ -34,12 +34,14 @@ window.onload = function () {
             document.getElementById("subtitle").innerHTML = "It's also my birthday! &#129395;";
         }
     } else if (month == 9) { // October
-        if (day < 7) {
+        if (day < 8) {
             document.getElementById("update").innerHTML = "&#127881;&#127881;&#127881; OVER $1,000,000 THIS YEAR!!! &#127881;&#127881;&#127881;\n&#127881;&#127881;&#127881; OVER $4,000,000 LIFETIME!!! &#127881;&#127881;&#127881;";
             if (day < 5) {
                 document.getElementById("answer").innerHTML = "It's bonus September";
             } else if (day == 6) {
                 document.getElementById("answer").innerHTML = "It's almost basically September";
+            } else {
+                document.getElementById("answer").innerHTML = "For just this one day, September is over";
             }
         } else {
             document.getElementById("answer").innerHTML = "It's basically September";
