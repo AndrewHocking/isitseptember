@@ -2,7 +2,7 @@ window.onload = function () {
     const today = new Date();
     const month = today.getMonth();
     const day = today.getDate();
-
+    
     if (month < 6) { // June
         document.getElementById("answer").innerHTML = "It's basically almost September";
     } else if (month < 7) { // July
@@ -34,12 +34,13 @@ window.onload = function () {
             document.getElementById("subtitle").innerHTML = "It's also my birthday! &#129395;";
         }
     } else if (month == 9) { // October
-        if (day < 5) {
-            document.getElementById("answer").innerHTML = "It's still September";
-        } else if (day == 6) {
-            document.getElementById("answer").innerHTML = "It's basically still September";
-        } else if (day == 7) {
-            document.getElementById("answer").innerHTML = "It's almost basically September";
+        if (day < 7) {
+            document.getElementById("update").innerHTML = "&#127881;&#127881;&#127881; OVER $1,000,000 THIS YEAR!!! &#127881;&#127881;&#127881;\n&#127881;&#127881;&#127881; OVER $4,000,000 LIFETIME!!! &#127881;&#127881;&#127881;";
+            if (day < 5) {
+                document.getElementById("answer").innerHTML = "It's bonus September";
+            } else if (day == 6) {
+                document.getElementById("answer").innerHTML = "It's almost basically September";
+            }
         } else {
             document.getElementById("answer").innerHTML = "It's basically September";
         }
