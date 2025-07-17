@@ -3,7 +3,7 @@
 /* Added to the project due to remote font loading issues with GitHub Pages */
 @font-face {
     font-family: 'ChicagoFLFRegular';
-    src: url('ChicagoFLFRegular.ttf') format('truetype');
+    src: url('../../../assets/fonts/ChicagoFLFRegular.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
 }
@@ -59,22 +59,19 @@ body {
     box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
 }
 
-.campaign-link {
+.floating-button {
     background-color: white;
     border: 2px solid black;
     padding: 10px;
     border-radius: 19px;
     box-shadow: 0 0 10px 0 rgba(51, 47, 47, 0.5);
     margin-bottom: 10px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     text-decoration: none;
     color: black;
     transition: 0.5s;
 }
 
-.campaign-link:hover {
+.floating-button:hover {
     background-color: rgb(255, 204, 53);
     color: black;
     border-color: black;
@@ -97,7 +94,7 @@ body {
         background-position: top left;
     }
 
-    .campaign-link {
+    .floating-button {
         background-color: black;
         color: rgb(255, 204, 53);
         border-color: rgb(255, 204, 53);
@@ -107,4 +104,52 @@ body {
 h1 {
     text-align: center;
     font-size: 50pt;
+}
+
+/* Septembed */
+
+.sj-container {
+    padding: 10px !important;
+    border-radius: 20px !important;
+    display: block !important;
+    text-decoration: none !important;
+    transition: background 1s ease !important;
+}
+
+.sj-container:hover {
+    background: #ffc000 !important;
+}
+
+.sj-subtitle {
+    font-size: 0.9em !important;
+}
+
+.sj-progress {
+    font-size: 0.9em !important;
+    box-sizing: border-box !important;
+    padding-left: 10px !important;
+    height: 100% !important;
+    background: black !important;
+    border-top-left-radius: 15px !important;
+    border-bottom-left-radius: 15px !important;
+    display: flex !important;
+    align-items: center !important;
+    color: white !important;
+}
+
+.sj-progress-text {
+    position: absolute !important;
+    top: 3px !important;
+    right: 0 !important;
+    left: 5px !important;
+    bottom: 0 !important;
+    color: white !important;
+    text-align: left !important;
+    font-size: 0.8em !important;
+}
+
+.sj-container {
+    background: #fddb73 !important;
+    color: black !important;
+    border: 2px solid #ffc000 !important;
 }

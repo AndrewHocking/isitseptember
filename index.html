@@ -3,9 +3,10 @@
 
     <head>
         <title>Is It September?</title>
-        <link rel="stylesheet" href="reset.css">
-        <link rel="stylesheet" href="styles.css">
-        <link rel="icon" href="favicon.ico">
+        <link rel="stylesheet" href="styles/reset.css">
+        <link rel="stylesheet" href="styles/styles.css">
+        <link rel="stylesheet" href="styles/themes/Relay/theme.css" id="theme_stylesheet">
+        <link rel="icon" href="styles/themes/Relay/favicon.png" id="favicon">
     </head>
 
     <body>
@@ -18,16 +19,16 @@
                 <small id="subtitle"></small>
                 <br />
                 <h2>
-                    <pre id="update"></pre>
+                    <div id="update"></div>
                 </h2>
             </div>
         </div>
         <div id="footer">
-            <div id="links">
-                <a class="campaign-link" href='https://relay.experience.stjude.org/'>
+            <div class="button-container">
+                <a class="floating-button" href='https://relay.experience.stjude.org/'>
                     Support Relay's campaign for St. Jude!
                 </a>
-                <a class="campaign-link"
+                <a class="floating-button"
                     href='https://tiltify.com/@aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'>
                     Support my campaign!
                 </a>
@@ -39,6 +40,13 @@
                     <script
                         src='https://septembed.rknight.me/sj.js?u=https://tiltify.com/@aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'></script>
                 </div>
+            </div>
+            <div id="theme-picker">
+                <label for="name" class="bold">Theme</label>
+                <select name="theme" id="theme" class="floating-button">
+                    <option value="Relay">Relay</option>
+                    <option value="8-Bit">8-Bit</option>
+                </select>
             </div>
         </div>
 

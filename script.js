@@ -1,52 +1,78 @@
-window.onload = function () {
-    const today = new Date();
-    const month = today.getMonth();
-    const day = today.getDate();
-    
-    if (month < 6) { // June
-        document.getElementById("answer").innerHTML = "It's basically almost September";
-    } else if (month < 7) { // July
-        if (day < 15) {
-            document.getElementById("answer").innerHTML = "It's almost September";
-        } else {
-            document.getElementById("answer").innerHTML = "It's almost nearly September";
-        }
-    } else if (month < 8) { // August
-        if (day < 15) {
-            document.getElementById("answer").innerHTML = "It's nearly September";
-        } else if (day < 29) {
-            document.getElementById("answer").innerHTML = "It's nearly effectively September";
-        } else {
-            document.getElementById("answer").innerHTML = "It's effectively September";
-        }
-    } else if (month == 8) { // September
-        if (day == 1) {
-            document.getElementById("answer").innerHTML = "It's actually September";
-        } else if (day < 23) {
-            document.getElementById("answer").innerHTML = "It's barely September";
-        } else if (day < 27) {
-            document.getElementById("answer").innerHTML = "It's thoroughly September";
-        } else {
-            document.getElementById("answer").innerHTML = "It's still September";
-        }
-
-        if (day == 12) {
-            document.getElementById("subtitle").innerHTML = "It's also my birthday! &#129395;";
-        }
-    } else if (month == 9) { // October
-        if (day < 8) {
-            document.getElementById("update").innerHTML = "&#127881;&#127881;&#127881; OVER $1,000,000 THIS YEAR!!! &#127881;&#127881;&#127881;\n&#127881;&#127881;&#127881; OVER $4,000,000 LIFETIME!!! &#127881;&#127881;&#127881;";
-            if (day < 5) {
-                document.getElementById("answer").innerHTML = "It's bonus September";
-            } else if (day == 6) {
-                document.getElementById("answer").innerHTML = "It's almost basically September";
-            } else {
-                document.getElementById("answer").innerHTML = "For just this one day, September is over";
+async function loadRules() {
+    try {
+        const response = await fetch("assets/rules.json");
+        const data = await response.json();
+        return data.map(rule => {
+            if (rule.start && rule.end) {
+                const [startMonth, startDay] = rule.start.split("-").map(Number);
+                const [endMonth, endDay] = rule.end.split("-").map(Number);
+                rule.match = (m, d) => {
+                    const current = m * 100 + d;
+                    const start = startMonth * 100 + startDay;
+                    const end = endMonth * 100 + endDay;
+                    return current >= start && current <= end;
+                };
             }
-        } else {
-            document.getElementById("answer").innerHTML = "It's basically September";
-        }
-    } else { // November - May
-        document.getElementById("answer").innerHTML = "It's basically September";
+            return rule;
+        });
+    } catch (e) {
+        console.error("Failed to load rules.json:", e);
+        return [];
     }
 }
+
+function setTheme(theme) {
+    document.getElementById("theme_stylesheet").setAttribute("href", `styles/themes/${theme}/theme.css`);
+    document.getElementById("favicon").setAttribute("href", `styles/themes/${theme}/favicon.png`);
+    localStorage.setItem("theme", theme);
+    setTimeout(function () {
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+    }, 50); // It doesn't scroll sometimes for no reason I can discern, unless there is a very slight delay before scrolling ¯\_(ツ)_/¯
+}
+
+window.onload = function () {
+    loadRules().then(rules => {
+        const today = new Date();
+        const month = today.getMonth() + 1; // Months are zero-indexed in JavaScript which is dumb and confusing so add one for clarity
+        const day = today.getDate();
+
+        let defaultAnswer = "It's basically September";
+        let selectedAnswer = null;
+        let selectedSubtitle = null;
+        let selectedUpdate = null;
+
+        for (const rule of rules) {
+            if (rule.match(month, day)) {
+                if (rule.answer) selectedAnswer = rule.answer;
+                if (rule.subtitle) selectedSubtitle = rule.subtitle;
+                if (rule.update) selectedUpdate = rule.update;
+                break;
+            }
+        }
+
+        document.getElementById("answer").innerHTML = selectedAnswer ?? defaultAnswer;
+        if (selectedSubtitle) {
+            document.getElementById("subtitle").innerHTML = selectedSubtitle;
+        }
+        if (selectedUpdate) {
+            document.getElementById("update").innerHTML = selectedUpdate;
+        }
+
+        const defaultTheme = "Relay";
+
+        let params = new URLSearchParams(document.location.search);
+        let theme = params.get("theme") ?? localStorage.getItem("theme") ?? defaultTheme;
+
+        const themePicker = document.getElementById("theme");
+        themePicker.value = theme;
+        setTheme(theme);
+
+        themePicker.addEventListener("change", function () {
+            const newTheme = themePicker.value;
+            setTheme(newTheme);
+        });
+    });
+};
