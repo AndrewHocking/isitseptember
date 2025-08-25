@@ -61,7 +61,7 @@ window.onload = function () {
             document.getElementById("update").innerHTML = selectedUpdate;
         }
 
-        const defaultTheme = "Relay";
+        const defaultTheme = "Arena";
 
         let params = new URLSearchParams(document.location.search);
         let theme = params.get("theme") ?? localStorage.getItem("theme") ?? defaultTheme;
@@ -76,3 +76,4 @@ window.onload = function () {
         });
     });
 };
+
