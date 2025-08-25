@@ -25,6 +25,33 @@ function setTheme(theme) {
     document.getElementById("theme_stylesheet").setAttribute("href", `styles/themes/${theme}/theme.css`);
     document.getElementById("favicon").setAttribute("href", `styles/themes/${theme}/favicon.png`);
     localStorage.setItem("theme", theme);
+
+    if (theme == "Arena") {
+        document.getElementById("fighter-left-img").style.transform = "translateX(-200%) scale(-1, 1)";
+        document.getElementById("fighter-right-img").style.transform = "translateX(200%) scale(1, 1)";
+        document.getElementById("fighters").hidden = false;
+
+        const hosts = [
+            "brad",
+            "casey",
+            "jason",
+            "kathy",
+            "myke",
+            "stephen"
+        ]
+
+        let leftHost = hosts[Math.floor(Math.random() * hosts.length)];
+        let rightHost = leftHost;
+        do {
+            rightHost = hosts[Math.floor(Math.random() * hosts.length)];
+        } while (rightHost === leftHost);
+
+        setFighter("left", leftHost);
+        setFighter("right", rightHost);
+    } else {
+        document.getElementById("fighters").hidden = true;
+    }
+
     setTimeout(function () {
         window.scrollTo({
             top: 0,
@@ -77,3 +104,51 @@ window.onload = function () {
     });
 };
 
+Array.from(document.getElementsByClassName("fighter-img")).forEach(img => {
+    let side = img.id.includes("left") ? "left" : "right";
+    img.addEventListener("click", function () {
+        img.style.transform = side == "left" ? "translateX(-200%) scale(-1, 1)" : "translateX(200%) scale(1, 1)";
+        document.getElementById(`fighter-${side}-select`).hidden = false;
+        setTimeout(function () {
+            document.getElementById(`fighter-${side}-select`).style.transform = "translateX(0%)";
+        }, 50);
+    });
+});
+
+let gridItems = Array.from(document.getElementsByClassName("grid-item"));
+function setFighter(side, name) {
+    let oppositeSide = side == "left" ? "right" : "left";
+    let oldName = null;
+    let duplicatedCharacter = false;
+    for (let item of gridItems) {
+        if (item.classList.contains("selected")) {
+            if (item.classList.contains(`${side}-grid-item`)) {
+                item.classList.remove("selected");
+                oldName = item.dataset.name;
+            } else if (item.dataset.name == name) {
+                duplicatedCharacter = true;
+            }
+        }
+    }
+    if (duplicatedCharacter) {
+        document.getElementById(`fighter-${oppositeSide}-img`).style.transform = oppositeSide == "left" ? "translateX(-200%) scale(-1, 1)" : "translateX(200%) scale(1, 1)";
+        setFighter(oppositeSide, oldName);
+    }
+    document.getElementById(`${side}-grid-item-${name}`).classList.add("selected");
+    document.documentElement.style.setProperty(`--${side}-colour`, `var(--${name}-colour)`);
+
+    setTimeout(function () {
+        document.getElementById(`fighter-${side}-select`).style.transform = side == "left" ? "translateX(-500%)" : "translateX(500%)";
+        setTimeout(function () {
+            document.getElementById(`fighter-${side}-img`).src = `styles/themes/Arena/images/characters/fighting/${name}-fighting.png`;
+            document.getElementById(`fighter-${side}-img`).style.transform = null;
+        }, 400);
+    }, 100);
+}
+
+gridItems.forEach(element => {
+    let side = element.classList.contains("left-grid-item") ? "left" : "right";
+    element.addEventListener("click", function () {
+        setFighter(side, element.dataset.name);
+    });
+});

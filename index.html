@@ -14,6 +14,7 @@
         <meta content="https://isitseptember.fyi/" property="og:url" />
         <meta content="https://isitseptember.fyi/favicon.ico" property="og:image" />
         <meta content="#41505a" data-react-helmet="true" name="theme-color" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     </head>
 
     <body>
@@ -30,9 +31,63 @@
                     <div id="update"></div>
                 </h2>
             </div>
+            <div id="container-fg">
+                <div id="fighters" hidden>
+                    <div id="fighter-left" class="fighter">
+                        <img id="fighter-left-img" class="fighter-img" src="styles/themes/Arena/images/characters/fighting/myke-fighting.png" />
+                        <div id="fighter-left-select" class="fighter-select" hidden>
+                            <div class="grid" id="fighter-left-grid">
+                                <div class="grid-item left-grid-item" id="left-grid-item-brad" data-name="brad">
+                                    <img class="fighter-head" src="styles/themes/Arena/images/characters/head/brad-head.png" />
+                                </div>
+                                <div class="grid-item left-grid-item" id="left-grid-item-casey" data-name="casey">
+                                    <img class="fighter-head" src="styles/themes/Arena/images/characters/head/casey-head.png" />
+                                </div>
+                                <div class="grid-item left-grid-item" id="left-grid-item-jason" data-name="jason">
+                                    <img class="fighter-head" src="styles/themes/Arena/images/characters/head/jason-head.png" />
+                                </div>
+                                <div class="grid-item left-grid-item" id="left-grid-item-kathy" data-name="kathy">
+                                    <img class="fighter-head" src="styles/themes/Arena/images/characters/head/kathy-head.png" />
+                                </div>
+                                <div class="grid-item left-grid-item selected" id="left-grid-item-myke" data-name="myke">
+                                    <img class="fighter-head" src="styles/themes/Arena/images/characters/head/myke-head.png" />
+                                </div>
+                                <div class="grid-item left-grid-item" id="left-grid-item-stephen" data-name="stephen">
+                                    <img class="fighter-head" src="styles/themes/Arena/images/characters/head/stephen-head.png" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="fighter-right" class="fighter">
+                        <img id="fighter-right-img" class="fighter-img" src="styles/themes/Arena/images/characters/fighting/stephen-fighting.png" />
+                        <div id="fighter-right-select" class="fighter-select" hidden>
+                            <div class="grid" id="fighter-right-grid">
+                                <div class="grid-item right-grid-item" id="right-grid-item-brad" data-name="brad">
+                                    <img class="fighter-head" src="styles/themes/Arena/images/characters/head/brad-head.png" />
+                                </div>
+                                <div class="grid-item right-grid-item" id="right-grid-item-casey" data-name="casey">
+                                    <img class="fighter-head" src="styles/themes/Arena/images/characters/head/casey-head.png" />
+                                </div>
+                                <div class="grid-item right-grid-item" id="right-grid-item-jason" data-name="jason">
+                                    <img class="fighter-head" src="styles/themes/Arena/images/characters/head/jason-head.png" />
+                                </div>
+                                <div class="grid-item right-grid-item" id="right-grid-item-kathy" data-name="kathy">
+                                    <img class="fighter-head" src="styles/themes/Arena/images/characters/head/kathy-head.png" />
+                                </div>
+                                <div class="grid-item right-grid-item" id="right-grid-item-myke" data-name="myke">
+                                    <img class="fighter-head" src="styles/themes/Arena/images/characters/head/myke-head.png" />
+                                </div>
+                                <div class="grid-item right-grid-item selected" id="right-grid-item-stephen" data-name="stephen">
+                                    <img class="fighter-head" src="styles/themes/Arena/images/characters/head/stephen-head.png" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
         <div id="footer">
-            <div class="button-container">
+            <div class="button-container" id="campaign-links">
                 <a class="floating-button" id="support-relay-button" href='https://relay.experience.stjude.org/'>
                     Support Relay's campaign for St. Jude!
                 </a>
@@ -49,18 +104,20 @@
                         src='https://septembed.rknight.me/sj.js?u=https://tiltify.com/@aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'></script>
                 </div> -->
             </div>
-            <div id="theme-picker">
-                <label for="name" class="bold">Theme</label>
-                <select name="theme" id="theme" class="floating-button">
-                    <option value="Arena">Arena</option>
-                    <option value="SwitchOn">Switch On</option>
-                    <option value="8-Bit">8-Bit</option>
-                </select>
+            <div class="button-container" id="theme-components">
+                <div id="theme-picker">
+                    <label for="name" class="bold">Theme</label>
+                    <select name="theme" id="theme" class="floating-button">
+                        <option value="Arena">Arena</option>
+                        <option value="SwitchOn">Switch On</option>
+                        <option value="8-Bit">8-Bit</option>
+                    </select>
+                </div>
             </div>
-            <button class="floating-button" id="button" hidden></button>
         </div>
 
         <script src="script.js"></script>
+        <script src="themes.js"></script>
     </body>
 
 </html>
