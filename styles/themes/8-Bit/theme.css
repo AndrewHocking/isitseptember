@@ -3,7 +3,7 @@
 /* Added to the project due to remote font loading issues with GitHub Pages */
 @font-face {
     font-family: 'ChicagoFLFRegular';
-    src: url('../../../assets/fonts/ChicagoFLFRegular.ttf') format('truetype');
+    src: url('ChicagoFLFRegular.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
 }
@@ -46,7 +46,7 @@ body {
     justify-content: center;
     align-items: center;
 
-    >a {
+    a {
         margin: 10px;
     }
 }

@@ -42,7 +42,7 @@ body {
     justify-content: center;
     align-items: center;
 
-    >a {
+    a {
         margin: 10px;
     }
 }

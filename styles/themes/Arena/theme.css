@@ -1,0 +1,97 @@
+:root {
+    --primary-colour: rgb(254, 208, 29);
+    --secondary-colour: rgb(9, 22, 30);
+    --accent-colour: var(--primary-colour);
+}
+
+@font-face {
+    font-family: 'Gotham-Black';
+    src: url('Gotham-Black.otf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: "Gotham-Black";
+    background-color: var(--secondary-colour);
+    color: var(--accent-colour);
+}
+
+#container-bg {
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background: url('images/arena.png');
+    -webkit-filter: blur(15px);
+    -moz-filter: blur(15px);
+    filter: blur(15px);
+    background-size: auto 100%;
+    background-position: top center, bottom center;
+    background-repeat: tile;
+    overflow-x: auto;
+}
+
+/* #button {
+    display: inline-block;
+    cursor: pointer;
+}
+
+#button::after {
+    content: "Select Character";
+    display: block;
+    clear: both;
+} */
+
+#footer {
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    background-color: rgb(15, 31, 39);
+    padding: 10px 0 20px 0;
+}
+
+#links {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    a {
+        margin: 10px;
+    }
+}
+
+.septembed {
+    width: 90%;
+    margin: auto auto 10px auto;
+    overflow-x: hidden;
+    border-radius: 19px;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
+}
+
+.floating-button {
+    background-color: var(--secondary-colour);
+    color: var(--accent-colour);
+    border: 2px solid var(--accent-colour);
+    padding: 10px;
+    border-radius: 3px;
+    box-shadow: 0 0 10px 0 rgba(51, 47, 47, 0.5);
+    margin-bottom: 10px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.floating-button:hover {
+    background-color: var(--accent-colour);
+    color: var(--secondary-colour);
+}
+
+h1 {
+    text-align: center;
+    font-size: 50pt;
+}
