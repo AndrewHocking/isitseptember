@@ -26,10 +26,17 @@ function setTheme(theme) {
     document.getElementById("favicon").setAttribute("href", `styles/themes/${theme}/favicon.png`);
     localStorage.setItem("theme", theme);
 
+    setTimeout(function () {
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+    }, 50); // It doesn't scroll sometimes for no reason I can discern, unless there is a very slight delay before scrolling ¯\_(ツ)_/¯
+
+
     if (theme == "Arena") {
-        document.getElementById("fighter-left-img").style.transform = "translateX(-200%) scale(-1, 1)";
-        document.getElementById("fighter-right-img").style.transform = "translateX(200%) scale(1, 1)";
-        document.getElementById("fighters").hidden = false;
+        document.getElementById("fighter-left-img-container").style.transform = `-translateX(${window.screen.width / 2}px)`;
+        document.getElementById("fighter-right-img-container").style.transform = `translateX(${window.screen.width / 2}px)`;
 
         const hosts = [
             "brad",
@@ -46,18 +53,20 @@ function setTheme(theme) {
             rightHost = hosts[Math.floor(Math.random() * hosts.length)];
         } while (rightHost === leftHost);
 
-        setFighter("left", leftHost);
-        setFighter("right", rightHost);
+        // openCharacterSelector("left");
+        // openCharacterSelector("right");
+
+        setTimeout(function () {
+            document.getElementById("fighters").hidden = false;
+            setFighter("left", leftHost);
+            setFighter("right", rightHost);
+            setTimeout(function () {
+                document.getElementById("go-button").click();
+            }, 500);
+        }, 1000);
     } else {
         document.getElementById("fighters").hidden = true;
     }
-
-    setTimeout(function () {
-        window.scrollTo({
-            top: 0,
-            behavior: "smooth"
-        });
-    }, 50); // It doesn't scroll sometimes for no reason I can discern, unless there is a very slight delay before scrolling ¯\_(ツ)_/¯
 }
 
 window.onload = function () {
@@ -104,16 +113,20 @@ window.onload = function () {
     });
 };
 
-Array.from(document.getElementsByClassName("fighter-img")).forEach(img => {
-    let side = img.id.includes("left") ? "left" : "right";
-    img.addEventListener("click", function () {
-        img.style.transform = side == "left" ? "translateX(-200%) scale(-1, 1)" : "translateX(200%) scale(1, 1)";
-        document.getElementById(`fighter-${side}-select`).hidden = false;
-        setTimeout(function () {
-            document.getElementById(`fighter-${side}-select`).style.transform = "translateX(0%)";
-        }, 50);
-    });
-});
+function openCharacterSelector(side) {
+    document.getElementById(`fighter-${side}-img-container`).style.transform = side == "left" ? "translateX(-300px)" : "translateX(300px)";
+    document.getElementById(`fighter-${side}-select`).hidden = false;
+    setTimeout(function () {
+        document.getElementById(`fighter-${side}-select`).style.transform = "translateX(0%)";
+    }, 100);
+}
+
+// Array.from(document.getElementsByClassName("fighter-img-container")).forEach(img => {
+//     let side = img.id.includes("left") ? "left" : "right";
+//     img.addEventListener("click", function () {
+//         openCharacterSelector(side);
+//     });
+// });
 
 let gridItems = Array.from(document.getElementsByClassName("grid-item"));
 function setFighter(side, name) {
@@ -121,29 +134,39 @@ function setFighter(side, name) {
     let oldName = null;
     let duplicatedCharacter = false;
     for (let item of gridItems) {
-        if (item.classList.contains("selected")) {
-            if (item.classList.contains(`${side}-grid-item`)) {
-                item.classList.remove("selected");
-                oldName = item.dataset.name;
-            } else if (item.dataset.name == name) {
-                duplicatedCharacter = true;
-            }
+        if (item.classList.contains(`${side}-grid-item`)) {
+            item.classList.remove("selected");
+        } else {
+            item.classList.remove("disabled");
         }
     }
-    if (duplicatedCharacter) {
-        document.getElementById(`fighter-${oppositeSide}-img`).style.transform = oppositeSide == "left" ? "translateX(-200%) scale(-1, 1)" : "translateX(200%) scale(1, 1)";
-        setFighter(oppositeSide, oldName);
-    }
     document.getElementById(`${side}-grid-item-${name}`).classList.add("selected");
+    document.getElementById(`${oppositeSide}-grid-item-${name}`).classList.add("disabled");
     document.documentElement.style.setProperty(`--${side}-colour`, `var(--${name}-colour)`);
 
-    setTimeout(function () {
-        document.getElementById(`fighter-${side}-select`).style.transform = side == "left" ? "translateX(-500%)" : "translateX(500%)";
+    let img = document.getElementById(`fighter-${side}-img`);
+    let imgContainer = document.getElementById(`fighter-${side}-img-container`);
+    if (img.src != "") {
         setTimeout(function () {
-            document.getElementById(`fighter-${side}-img`).src = `styles/themes/Arena/images/characters/fighting/${name}-fighting.png`;
-            document.getElementById(`fighter-${side}-img`).style.transform = null;
-        }, 400);
-    }, 100);
+            // Send fighter-${side}-img off screen
+            imgContainer.style.transform = side == "left" ? `translateX(-${window.screen.width / 2}px)` : `translateX(${window.screen.width / 2}px)`;
+        }, 100);
+    }
+
+    let fighterLeftLightsImg = document.getElementById("fighter-left-lights-img");
+    let fighterRightLightsImg = document.getElementById("fighter-right-lights-img");
+    fighterLeftLightsImg.classList.remove("blinking");
+    fighterRightLightsImg.classList.remove("blinking");
+    fighterLeftLightsImg.style.opacity = "0";
+    fighterRightLightsImg.style.opacity = "0";
+
+    imgContainer.dataset.name = name;
+    setTimeout(function () {
+        img.src = `styles/themes/Arena/images/characters/street/${name}-street.png`;
+        setTimeout(function () {
+            imgContainer.style.transform = side == "left" ? "translateX(-300px)" : "translateX(300px)";
+        }, 300);
+    }, 200);
 }
 
 gridItems.forEach(element => {
@@ -151,4 +174,106 @@ gridItems.forEach(element => {
     element.addEventListener("click", function () {
         setFighter(side, element.dataset.name);
     });
+});
+
+document.getElementById("go-button").addEventListener("click", function () {
+    let goButtonContainer = document.getElementById("go-button-container");
+    let goButton = document.getElementById("go-button");
+    let fighterLeftSelect = document.getElementById("fighter-left-select");
+    let fighterRightSelect = document.getElementById("fighter-right-select");
+    let fighterLeftImgContainer = document.getElementById("fighter-left-img-container");
+    let fighterRightImgContainer = document.getElementById("fighter-right-img-container");
+    let fighterLeftImg = document.getElementById("fighter-left-img");
+    let fighterRightImg = document.getElementById("fighter-right-img");
+    let fighterLeftLightsImg = document.getElementById("fighter-left-lights-img");
+    let fighterRightLightsImg = document.getElementById("fighter-right-lights-img");
+    goButtonContainer.style.opacity = "0";
+    goButton.classList.add("disabled");
+
+    if (goButtonContainer.dataset.collapsed == "true") {
+        // Reset
+        openCharacterSelector("left");
+        openCharacterSelector("right");
+        fighterLeftImgContainer.style.transition = null;
+        fighterRightImgContainer.style.transition = null;
+        fighterLeftImg.style.filter = null;
+        fighterRightImg.style.filter = null;
+        fighterLeftImgContainer.style.transform = `translateX(-${window.screen.width / 2}px)`;
+        fighterRightImgContainer.style.transform = `translateX(${window.screen.width / 2}px)`;
+        setTimeout(function () {
+            fighterLeftSelect.hidden = false;
+            fighterRightSelect.hidden = false;
+            fighterLeftSelect.style.transform = "translateX(0%)";
+            fighterRightSelect.style.transform = "translateX(0%)";
+            fighterLeftImg.src = `styles/themes/Arena/images/characters/street/${fighterLeftImgContainer.dataset.name}-street.png`;
+            fighterRightImg.src = `styles/themes/Arena/images/characters/street/${fighterRightImgContainer.dataset.name}-street.png`;
+            fighterLeftImgContainer.style.transform = "translateX(-300px)";
+            fighterRightImgContainer.style.transform = "translateX(300px)";
+            goButtonContainer.style.height = null;
+            goButtonContainer.style.alignItems = null;
+            goButtonContainer.style.scale = null;
+            goButtonContainer.style.opacity = "1";
+            goButton.innerHTML = "GO!";
+            goButtonContainer.dataset.collapsed = "false";
+            goButton.classList.remove("disabled");
+        }, 500);
+        return;
+    }
+
+    goButtonContainer.dataset.collapsed = "true";
+    fighterLeftSelect.style.transform = `translateX(-${window.screen.width / 2}px)`;
+    fighterRightSelect.style.transform = `translateX(${window.screen.width / 2}px)`;
+    setTimeout(function () {
+        fighterLeftImgContainer.style.transform = "translateX(50px)";
+        fighterRightImgContainer.style.transform = "translateX(-50px)";
+
+        setTimeout(function () {
+            goButtonContainer.style.height = "100%";
+            goButtonContainer.style.alignItems = "flex-end";
+            goButtonContainer.style.scale = "0.75";
+            goButton.innerHTML = "&hookleftarrow;";
+            fighterLeftImg.style.transition = "all 1s ease-in-out";
+            fighterRightImg.style.transition = "all 1s ease-in-out";
+            setTimeout(function () {
+                fighterLeftImg.style.filter = "brightness(0%) invert(1) drop-shadow(0px 0px 10px #FFFFFF)";
+                fighterRightImg.style.filter = "brightness(0%) invert(1) drop-shadow(0px 0px 10px #FFFFFF)";
+                setTimeout(function () {
+                    fighterLeftImg.src = `styles/themes/Arena/images/characters/suit/${fighterLeftImgContainer.dataset.name}-suit.png`;
+                    fighterRightImg.src = `styles/themes/Arena/images/characters/suit/${fighterRightImgContainer.dataset.name}-suit.png`;
+                    fighterLeftLightsImg.src = `styles/themes/Arena/images/characters/lights/${fighterLeftImgContainer.dataset.name}-lights.png`;
+                    fighterRightLightsImg.src = `styles/themes/Arena/images/characters/lights/${fighterRightImgContainer.dataset.name}-lights.png`;
+                    setTimeout(function () {
+                        fighterLeftLightsImg.classList.add("blinking");
+                        fighterRightLightsImg.classList.add("blinking");
+                    }, 100);
+                    setTimeout(function () {
+                        fighterLeftImg.style.filter = null;
+                        fighterRightImg.style.filter = null;
+                        setTimeout(function () {
+                            fighterLeftImgContainer.style.transition = null;
+                            fighterRightImgContainer.style.transition = null;
+                            fighterLeftImgContainer.style.transform = `translateX(-${window.screen.width / 2}px)`;
+                            fighterRightImgContainer.style.transform = `translateX(${window.screen.width / 2}px)`;
+                            setTimeout(function () {
+                                fighterLeftImg.src = `styles/themes/Arena/images/characters/fighting/${fighterLeftImgContainer.dataset.name}-fighting.png`;
+                                fighterRightImg.src = `styles/themes/Arena/images/characters/fighting/${fighterRightImgContainer.dataset.name}-fighting.png`;
+                                fighterLeftImgContainer.style.transform = null;
+                                fighterRightImgContainer.style.transform = null;
+                                fighterLeftLightsImg.style.opacity = "0";
+                                fighterRightLightsImg.style.opacity = "0";
+                                fighterLeftLightsImg.classList.remove("blinking");
+                                fighterRightLightsImg.classList.remove("blinking");
+                                fighterLeftImg.style.transition = null;
+                                fighterRightImg.style.transition = null;
+                                setTimeout(function () {
+                                    goButton.classList.remove("disabled");
+                                    goButtonContainer.style.opacity = "1";
+                                }, 1000);
+                            }, 1000);
+                        }, 4000);
+                    }, 2000);
+                }, 1100);
+            }, 100);
+        }, 200);
+    }, 200);
 });

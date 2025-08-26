@@ -34,7 +34,11 @@
             <div id="container-fg">
                 <div id="fighters" hidden>
                     <div id="fighter-left" class="fighter">
-                        <img id="fighter-left-img" class="fighter-img" src="styles/themes/Arena/images/characters/fighting/myke-fighting.png" />
+                        <div id="fighter-left-img-container" class="fighter-img-container">
+                            <img id="fighter-left-img" class="fighter-img" src="" />
+                            <img id="fighter-left-lights-img" class="fighter-lights-img"
+                                src="styles/themes/Arena/images/characters/lights/myke-lights.png" />
+                        </div>
                         <div id="fighter-left-select" class="fighter-select" hidden>
                             <div class="grid" id="fighter-left-grid">
                                 <div class="grid-item left-grid-item" id="left-grid-item-brad" data-name="brad">
@@ -49,7 +53,7 @@
                                 <div class="grid-item left-grid-item" id="left-grid-item-kathy" data-name="kathy">
                                     <img class="fighter-head" src="styles/themes/Arena/images/characters/head/kathy-head.png" />
                                 </div>
-                                <div class="grid-item left-grid-item selected" id="left-grid-item-myke" data-name="myke">
+                                <div class="grid-item left-grid-item" id="left-grid-item-myke" data-name="myke">
                                     <img class="fighter-head" src="styles/themes/Arena/images/characters/head/myke-head.png" />
                                 </div>
                                 <div class="grid-item left-grid-item" id="left-grid-item-stephen" data-name="stephen">
@@ -58,8 +62,15 @@
                             </div>
                         </div>
                     </div>
+                    <div id="go-button-container">
+                        <div id="go-button" class="disabled">GO!</div>
+                    </div>
                     <div id="fighter-right" class="fighter">
-                        <img id="fighter-right-img" class="fighter-img" src="styles/themes/Arena/images/characters/fighting/stephen-fighting.png" />
+                        <div id="fighter-right-img-container" class="fighter-img-container">
+                            <img id="fighter-right-img" class="fighter-img" src="" />
+                            <img id="fighter-right-lights-img" class="fighter-lights-img"
+                                src="styles/themes/Arena/images/characters/lights/myke-lights.png" />
+                        </div>
                         <div id="fighter-right-select" class="fighter-select" hidden>
                             <div class="grid" id="fighter-right-grid">
                                 <div class="grid-item right-grid-item" id="right-grid-item-brad" data-name="brad">
@@ -77,7 +88,7 @@
                                 <div class="grid-item right-grid-item" id="right-grid-item-myke" data-name="myke">
                                     <img class="fighter-head" src="styles/themes/Arena/images/characters/head/myke-head.png" />
                                 </div>
-                                <div class="grid-item right-grid-item selected" id="right-grid-item-stephen" data-name="stephen">
+                                <div class="grid-item right-grid-item" id="right-grid-item-stephen" data-name="stephen">
                                     <img class="fighter-head" src="styles/themes/Arena/images/characters/head/stephen-head.png" />
                                 </div>
                             </div>
